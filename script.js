@@ -23,4 +23,52 @@ const greyscale = () => {
     ctx.putImageData(scannedImage, 0, 0)
 }
 
-image1.addEventListener('load', greyscale)
+const rainyAnimation = () => {
+    ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
+    let particlesArray = [];
+    const numberOfParticles = 5000;
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = 0;
+            this.speed = 0;
+            this.velocity = Math.random() * 3.5;
+            this.size = Math.random() * 1.5 + 1;
+        }
+        update() {
+            this.y += this.velocity;
+            if (this.y >= canvas.height){
+                this.y = 0;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.fillStyle = 'white'
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    function init() {
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle);
+        }
+    }
+    init();
+    function animate () {
+        ctx.globalAlpha = 0.05;
+        ctx.fillStyle = 'rbg(0, 0, 0)';
+        for (let i = 0; i < particlesArray.length; i++) {
+            if (i % 5000 === 0) {
+                ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
+            }
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+image1.addEventListener('load', rainyAnimation)
