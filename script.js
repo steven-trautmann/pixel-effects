@@ -57,12 +57,10 @@ const rainyAnimation = () => {
     }
     init();
     function animate () {
+        ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
         ctx.globalAlpha = 0.05;
         ctx.fillStyle = 'rbg(0, 0, 0)';
         for (let i = 0; i < particlesArray.length; i++) {
-            if (i % 5000 === 0) {
-                ctx.drawImage(image1, 0, 0, canvas.width, canvas.height);
-            }
             particlesArray[i].update();
             particlesArray[i].draw();
         }
