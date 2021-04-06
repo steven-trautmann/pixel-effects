@@ -37,7 +37,6 @@ const rainyAnimation = () => {
     gradient1.addColorStop(0.7, 'turquoise');
     gradient1.addColorStop(0.8, 'violet');
 
-
     let mappedImage = [];
     for (let y = 0; y < canvas.height; y++) {
         let row = [];
@@ -95,9 +94,13 @@ const rainyAnimation = () => {
         }
         draw() {
             ctx.beginPath();
-            ctx.fillStyle = mappedImage[Math.abs(this.position1)][this.position2][1]
+            ctx.fillStyle = mappedImage[Math.abs(this.position1)][this.position2][1];
+            ctx.strokeStyle = mappedImage[Math.abs(this.position1)][this.position2][1];
             // ctx.fillStyle = gradient1;
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            // ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            // ctx.strokeRect(this.x, this.y, this.size * 2, this.size * 2);
+            ctx.font = '20px Arial';
+            ctx.fillText('ß', this.x, this.y);
             ctx.fill();
         }
     }
@@ -108,10 +111,9 @@ const rainyAnimation = () => {
     }
     init();
     function animate () {
-        ctx.globalAlpha = 0.05;
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 0.075;
+        ctx.globalAlpha = 0.25;
         for (let i = 0; i < particlesArray.length; i++) {
             particlesArray[i].update();
             // ctx.globalAlpha = particlesArray[i].speed * 0.04
