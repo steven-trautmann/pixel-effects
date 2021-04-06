@@ -2,11 +2,13 @@ body {
   background: black;
 }
 
+#canvas-container {
+  display: flex;
+  justify-content: center;
+}
+
 #canvas1 {
   border: 3px solid white;
-  left: 50%;
-  position: absolute;
-  width: 800px;
-  height: 450px;
-  transform: translate(-50%, 25%);
+  width: 600px;
+  height: 702px;
 }
