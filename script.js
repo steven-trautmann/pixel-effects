@@ -61,19 +61,24 @@ const rainyAnimation = () => {
             this.speed = 0;
             this.velocity = Math.random() * 0.5;
             this.size = Math.random() * 1.5 + 1;
+            this.position1 = Math.floor(this.y);
+            this.position2 = Math.floor(this.x);
+            this.angle = 0;
         }
         update() {
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
             this.speed = mappedImage[Math.abs(this.position1)][this.position2][0];
             let movement = (2.5 - this.speed) + this.velocity;
-            this.y += movement;
-            this.x += movement/2;
-            if (this.y >= canvas.height){
+            this.angle += this.speed/20;
+
+            this.y += movement + Math.sin(this.angle) * 2;
+            this.x += movement + Math.cos(this.angle) * 2;
+            if (this.y >= canvas.height || this.y <= 0){
                 this.y = 0;
                 this.x = Math.random() * canvas.width;
             }
-            if (this.x >= canvas.width) {
+            if (this.x >= canvas.width || this.x <= 0) {
                 this.x = 0;
                 this.y = Math.random() * canvas.height;
             }
