@@ -28,6 +28,15 @@ const rainyAnimation = () => {
 
     let particlesArray = [];
     const numberOfParticles = 7500;
+    const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient1.addColorStop(0.2, 'pink');
+    gradient1.addColorStop(0.3, 'red');
+    gradient1.addColorStop(0.4, 'orange');
+    gradient1.addColorStop(0.5, 'yellow');
+    gradient1.addColorStop(0.6, 'green');
+    gradient1.addColorStop(0.7, 'turquoise');
+    gradient1.addColorStop(0.8, 'violet');
+
 
     let mappedImage = [];
     for (let y = 0; y < canvas.height; y++) {
@@ -71,6 +80,7 @@ const rainyAnimation = () => {
             this.speed = mappedImage[Math.abs(this.position1)][this.position2][0];
             let movement = (2.5 - this.speed) + this.velocity;
             this.angle += this.speed/20;
+            this.size / this.speed * 1.5;
 
             this.y += movement + Math.sin(this.angle) * 2;
             this.x += movement + Math.cos(this.angle) * 2;
@@ -86,6 +96,7 @@ const rainyAnimation = () => {
         draw() {
             ctx.beginPath();
             ctx.fillStyle = mappedImage[Math.abs(this.position1)][this.position2][1]
+            // ctx.fillStyle = gradient1;
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
