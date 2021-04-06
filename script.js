@@ -39,7 +39,11 @@ const rainyAnimation = () => {
     let switcher = 1;
     let counter = 0;
     setInterval(function(){
-        counter++;
+        if (counter > 80) {
+            counter = 1;
+        } else {
+            counter++;
+        }
         if (counter % 20 === 0) {
             switcher *= -1;
         }
@@ -86,7 +90,11 @@ const rainyAnimation = () => {
             this.position2 = Math.floor(this.x);
             this.speed = mappedImage[Math.abs(this.position1)][this.position2][0];
             let movement = (2.5 - this.speed) + this.velocity;
-            this.angle += this.speed/20;
+            if (this.angle > 10) {
+                this.angle = this.speed/20;
+            } else {
+                this.angle += this.speed/20;
+            }
             this.size / this.speed * 1.5;
             if (counter % 40 === 0){
                 this.x = Math.random() * canvas.width;
