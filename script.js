@@ -36,6 +36,14 @@ const rainyAnimation = () => {
     gradient1.addColorStop(0.6, 'green');
     gradient1.addColorStop(0.7, 'turquoise');
     gradient1.addColorStop(0.8, 'violet');
+    let switcher = 1;
+    let counter = 0;
+    setInterval(function(){
+        counter++;
+        if (counter % 20 === 0) {
+            switcher *= -1;
+        }
+    }, 500);
 
     let mappedImage = [];
     for (let y = 0; y < canvas.height; y++) {
@@ -80,6 +88,15 @@ const rainyAnimation = () => {
             let movement = (2.5 - this.speed) + this.velocity;
             this.angle += this.speed/20;
             this.size / this.speed * 1.5;
+            if (counter % 40 === 0){
+                this.x = Math.random() * canvas.width;
+                this.y = 0;
+            }
+            if (switcher === 1) {
+                ctx.globalCompositeOperation = 'luminosity';
+            } else {
+                ctx.globalCompositeOperation = 'hard-light';
+            }
 
             this.y += movement + Math.sin(this.angle) * 2;
             this.x += movement + Math.cos(this.angle) * 2;
@@ -97,10 +114,10 @@ const rainyAnimation = () => {
             ctx.fillStyle = mappedImage[Math.abs(this.position1)][this.position2][1];
             ctx.strokeStyle = mappedImage[Math.abs(this.position1)][this.position2][1];
             // ctx.fillStyle = gradient1;
-            // ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             // ctx.strokeRect(this.x, this.y, this.size * 2, this.size * 2);
-            ctx.font = '20px Arial';
-            ctx.fillText('ß', this.x, this.y);
+            // ctx.font = '20px Arial';
+            // ctx.fillText('ß', this.x, this.y);
             ctx.fill();
         }
     }
