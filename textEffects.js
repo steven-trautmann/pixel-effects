@@ -47,8 +47,17 @@ class Particle {
         let directionY = forceDirectionY * force * this.density;
 
         if (distance < maxDistance) {
-            this.x -= directionX;
-            this.y -= directionY;
+            this.size = 4;
+            const futureXPosition = this.x - directionX;
+            const futureYPosition = this.y - directionY;
+            if (futureXPosition > 0 && futureXPosition < canvas.width) {
+                this.x = futureXPosition;
+            }
+            if (futureYPosition > 0 && futureYPosition < canvas.height) {
+                this.y = futureYPosition;
+            }
+        } else {
+            this.size = 3;
         }
     }
 }
