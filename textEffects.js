@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 600;
+canvas.height = 702;
 let particleArray = [];
 
 // handle mouse
@@ -12,8 +12,11 @@ const mouse = {
 }
 
 window.addEventListener('mousemove', function(event){
-    mouse.x = event.x;
-    mouse.y = event.y;
+    const offset = canvas.getBoundingClientRect();
+    mouse.x = event.x - offset.left;
+    mouse.y = event.y - offset.top;
+    console.log(offset);
+    console.log(mouse);
 })
 
 const data = ctx.getImageData(0, 0, 100, 100);
@@ -38,7 +41,9 @@ class Particle {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 200) {
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        if (distance < 100) {
             this.size = 50;
         } else {
             this.size = 3;
@@ -55,7 +60,6 @@ function init() {
     }
 }
 init();
-console.log(particleArray)
 
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
