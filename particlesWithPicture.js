@@ -79,7 +79,7 @@ const rainyAnimation = () => {
             this.x = Math.random() * canvas.width;
             this.y = canvas.height-1;
             this.speed = 0;
-            this.velocity = Math.random() * 2.5;
+            this.velocity = Math.random() * 0.9;
             this.size = Math.random() * 1.5 + 1;
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
