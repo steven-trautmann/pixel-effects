@@ -27,7 +27,7 @@ const rainyAnimation = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     let particlesArray = [];
-    const numberOfParticles = 7500;
+    const numberOfParticles = 5000;
     const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient1.addColorStop(0.2, 'pink');
     gradient1.addColorStop(0.3, 'red');
@@ -77,9 +77,9 @@ const rainyAnimation = () => {
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
-            this.y = 0;
+            this.y = canvas.height-1;
             this.speed = 0;
-            this.velocity = Math.random() * 0.5;
+            this.velocity = Math.random() * 0.9;
             this.size = Math.random() * 1.5 + 1;
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
@@ -95,8 +95,8 @@ const rainyAnimation = () => {
             } else {
                 this.angle += this.speed/20;
             }
-            this.size / this.speed * 1.5;
-            if (counter % 40 === 0){
+            this.size = this.speed * 2;
+            /*if (counter % 40 === 0){
                 this.x = Math.random() * canvas.width;
                 this.y = 0;
             }
@@ -104,12 +104,12 @@ const rainyAnimation = () => {
                 ctx.globalCompositeOperation = 'luminosity';
             } else {
                 ctx.globalCompositeOperation = 'hard-light';
-            }
+            }*/
 
-            this.y += movement + Math.sin(this.angle) * 2;
+            this.y -= movement + Math.sin(this.angle) * 2;
             this.x += movement + Math.cos(this.angle) * 2;
             if (this.y >= canvas.height || this.y <= 0){
-                this.y = 0;
+                this.y = canvas.height-1;
                 this.x = Math.random() * canvas.width;
             }
             if (this.x >= canvas.width || this.x <= 0) {

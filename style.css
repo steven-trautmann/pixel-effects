@@ -11,4 +11,5 @@ body {
   border: 3px solid white;
   width: 600px;
   height: 702px;
+  filter: contrast(5);
 }
