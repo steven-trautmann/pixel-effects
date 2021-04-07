@@ -46,11 +46,9 @@ class Particle {
         let directionX = forceDirectionX * force * this.density;
         let directionY = forceDirectionY * force * this.density;
 
-        if (distance < maxDistance && distance > 30) {
-            this.x += directionX;
-            this.y += directionY;
-        } else {
-            this.size = 3;
+        if (distance < maxDistance) {
+            this.x -= directionX;
+            this.y -= directionY;
         }
     }
 }
