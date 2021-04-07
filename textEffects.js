@@ -15,8 +15,6 @@ window.addEventListener('mousemove', function(event){
     const offset = canvas.getBoundingClientRect();
     mouse.x = event.x - offset.left;
     mouse.y = event.y - offset.top;
-    console.log(offset);
-    console.log(mouse);
 })
 
 const data = ctx.getImageData(0, 0, 100, 100);
@@ -43,8 +41,14 @@ class Particle {
         let distance = Math.sqrt(dx * dx + dy * dy);
         let forceDirectionX = dx / distance;
         let forceDirectionY = dy / distance;
-        if (distance < 100) {
-            this.size = 50;
+        let maxDistance = mouse.radius;
+        let force = (maxDistance - distance) / maxDistance;
+        let directionX = forceDirectionX * force * this.density;
+        let directionY = forceDirectionY * force * this.density;
+
+        if (distance < maxDistance && distance > 30) {
+            this.x += directionX;
+            this.y += directionY;
         } else {
             this.size = 3;
         }
@@ -53,7 +57,7 @@ class Particle {
 
 function init() {
     particlesArray = [];
-    for (let i = 0; i < 500; i++){
+    for (let i = 0; i < 750; i++){
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         particleArray.push(new Particle(x, y));
