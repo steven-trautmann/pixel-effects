@@ -58,6 +58,14 @@ class Particle {
             }
         } else {
             this.size = 3;
+            if (this.x !== this.baseX) {
+                let dx = this.x - this.baseX;
+                this.x -= dx/20;
+            }
+            if (this.y !== this.baseY) {
+                let dy = this.y - this.baseY;
+                this.y -= dy/20;
+            }
         }
     }
 }
