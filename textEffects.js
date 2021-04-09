@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 canvas.width = 600;
 canvas.height = 702;
 let particleArray = [];
+let correctionX = 50;
+let correctionY = -100;
 
 // handle mouse
 const mouse = {
@@ -17,7 +19,7 @@ window.addEventListener('mousemove', function(event){
     mouse.y = event.y - offset.top;
 })
 ctx.fillStyle = 'white';
-ctx.font = '30px Verdana';
+ctx.font = '15px Verdana';
 ctx.fillText('Alpha', 0, 30);
 const textCoordinates = ctx.getImageData(0, 0, 100, 100);
 
@@ -81,7 +83,7 @@ function init() {
             //0 and 255 -> 100 * 100 has 39 999 elements,
             //because rgba -> 10 000 each
             if (textCoordinates.data[y * 4 * textCoordinates.width + (x * 4) + 3] > 128){
-                particleArray.push(new Particle(x * 6, y * 6));
+                particleArray.push(new Particle(x * 12.5 + correctionX, y * 12.5 + correctionY));
             }
         }
     }
@@ -100,13 +102,15 @@ function animate(){
 animate();
 
 function connect(){
+    let opacityValue = 1;
     for (let a = 0; a < particleArray.length; a++){
         for (let b = a+1; b < particleArray.length; b++){
             let dx = particleArray[a].x - particleArray[b].x;
             let dy = particleArray[a].y - particleArray[b].y;
             let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < 20){
-                ctx.strokeStyle = 'white';
+            if (distance < 40){
+                opacityValue = 1 - (distance/40);
+                ctx.strokeStyle = `rgba(255,255,255,${opacityValue})`;
                 ctx.lineWidth = 3;
                 ctx.beginPath();
                 ctx.moveTo(particleArray[a].x, particleArray[a].y);
