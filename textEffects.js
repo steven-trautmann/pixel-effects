@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 600;
 canvas.height = 702;
 let particleArray = [];
-let correctionX = 50;
+let correctionX = 0;
 let correctionY = -100;
 
 // handle mouse
@@ -20,7 +20,7 @@ window.addEventListener('mousemove', function(event){
 })
 ctx.fillStyle = 'white';
 ctx.font = '15px Verdana';
-ctx.fillText('Alpha', 0, 30);
+ctx.fillText('ALPHA', 0, 30);
 const textCoordinates = ctx.getImageData(0, 0, 100, 100);
 
 class Particle {
@@ -51,7 +51,11 @@ class Particle {
         let directionY = forceDirectionY * force * this.density;
 
         if (distance < maxDistance) {
-            this.size = 4;
+            if (distance < maxDistance/2) {
+                this.size = 5;
+            } else {
+                this.size = 4;
+            }
             const futureXPosition = this.x - directionX;
             const futureYPosition = this.y - directionY;
             if (futureXPosition > 0 && futureXPosition < canvas.width) {
