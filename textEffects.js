@@ -27,7 +27,8 @@ class Particle {
     constructor(x, y){
         this.x = x;
         this.y = y;
-        this.size = 3;
+        this.originalSize = 3;
+        this.size = this.originalSize;
         this.baseX = this.x;
         this.baseY = this.y;
         this.density = (Math.random() *30) + 1;
@@ -51,10 +52,14 @@ class Particle {
         let directionY = forceDirectionY * force * this.density;
 
         if (distance < maxDistance) {
-            if (distance < maxDistance/2) {
-                this.size = 5;
+            if (distance < maxDistance/4) {
+                this.size = this.originalSize*1.75;
+            } else if (distance < maxDistance/3) {
+                this.size = this.originalSize*1.5;
+            } else if (distance < maxDistance/2) {
+                this.size = this.originalSize*1.25;
             } else {
-                this.size = 4;
+                this.size = this.originalSize*1.1;
             }
             const futureXPosition = this.x - directionX;
             const futureYPosition = this.y - directionY;
@@ -65,7 +70,7 @@ class Particle {
                 this.y = futureYPosition;
             }
         } else {
-            this.size = 3;
+            this.size = this.originalSize;
             if (this.x !== this.baseX) {
                 let dx = this.x - this.baseX;
                 this.x -= dx/20;
