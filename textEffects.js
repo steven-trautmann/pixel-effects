@@ -125,7 +125,7 @@ function connect(){
             let distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < 40){
                 opacityValue = 1 - (distance/40);
-                ctx.strokeStyle = `rgba(255,0,0,${opacityValue})`;
+                ctx.strokeStyle = `rgba(255,255,255,${opacityValue})`;
                 ctx.lineWidth = 3;
                 ctx.beginPath();
                 ctx.moveTo(particleArray[a].x, particleArray[a].y);
