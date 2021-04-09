@@ -73,10 +73,16 @@ class Particle {
             this.size = this.originalSize;
             if (this.x !== this.baseX) {
                 let dx = this.x - this.baseX;
+                if (Math.abs(dx/20) > 0.5) {
+                    dx = dx*0.75
+                }
                 this.x -= dx/20;
             }
             if (this.y !== this.baseY) {
                 let dy = this.y - this.baseY;
+                if (Math.abs(dy/20) > 0.5) {
+                    dy = dy*0.75
+                }
                 this.y -= dy/20;
             }
         }
@@ -119,7 +125,7 @@ function connect(){
             let distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < 40){
                 opacityValue = 1 - (distance/40);
-                ctx.strokeStyle = `rgba(255,255,255,${opacityValue})`;
+                ctx.strokeStyle = `rgba(255,0,0,${opacityValue})`;
                 ctx.lineWidth = 3;
                 ctx.beginPath();
                 ctx.moveTo(particleArray[a].x, particleArray[a].y);
