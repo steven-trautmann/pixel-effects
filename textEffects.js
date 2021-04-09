@@ -16,8 +16,10 @@ window.addEventListener('mousemove', function(event){
     mouse.x = event.x - offset.left;
     mouse.y = event.y - offset.top;
 })
-
-const data = ctx.getImageData(0, 0, 100, 100);
+ctx.fillStyle = 'white';
+ctx.font = '30px Verdana';
+ctx.fillText('Alpha', 0, 30);
+const textCoordinates = ctx.getImageData(0, 0, 100, 100);
 
 class Particle {
     constructor(x, y){
@@ -70,12 +72,18 @@ class Particle {
     }
 }
 
+
 function init() {
     particlesArray = [];
-    for (let i = 0; i < 750; i++){
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        particleArray.push(new Particle(x, y));
+    for (let y = 0, y2 = textCoordinates.height; y < y2; y++) {
+        for (let x = 0, x2 = textCoordinates.width; x < x2; x++) {
+            //Uint8ClampedArray -> only can contain number between
+            //0 and 255 -> 100 * 100 has 39 999 elements,
+            //because rgba -> 10 000 each
+            if (textCoordinates.data[y * 4 * textCoordinates.width + (x * 4) + 3] > 128){
+                particleArray.push(new Particle(x * 6, y * 6));
+            }
+        }
     }
 }
 init();
